@@ -1,0 +1,9 @@
+# ninja log v5
+3	1412	7271509147212880	flappy-bird_autogen/timestamp	a08f8b457bc8f4df
+3	1412	7271509147212880	flappy-bird_autogen/mocs_compilation.cpp	a08f8b457bc8f4df
+3	1412	7271509147212880	C:/Users/pamir/Desktop/C++/flappy-bird-qt/build-flappy-bird-Desktop_x86_windows_msys_pe_64bit-Debug/flappy-bird_autogen/timestamp	a08f8b457bc8f4df
+3	1412	7271509147212880	C:/Users/pamir/Desktop/C++/flappy-bird-qt/build-flappy-bird-Desktop_x86_windows_msys_pe_64bit-Debug/flappy-bird_autogen/mocs_compilation.cpp	a08f8b457bc8f4df
+1424	8174	7271509215860323	CMakeFiles/flappy-bird.dir/main.cpp.obj	d32a04f8f4cb9b9a
+1418	8543	7271509219538807	CMakeFiles/flappy-bird.dir/mainwindow.cpp.obj	ca9428e82bea3780
+46	3960	7271509484266219	CMakeFiles/flappy-bird.dir/flappy-bird_autogen/mocs_compilation.cpp.obj	633bbaa12309cae6
+3962	4466	7271509489218082	flappy-bird.exe	1dfd5b39c081583f
