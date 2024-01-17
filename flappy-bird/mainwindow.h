@@ -34,7 +34,7 @@ private:
     int score;
 
     const unsigned int pipeGap = 50;
-    const unsigned int upperPipeHeight = height() - pipeGap;
+    const unsigned int topPipeHeight = height() - pipeGap;
     const unsigned int pipeWidth = 50;
     const unsigned int topPipeYPos = 0;
     const unsigned int bottomPipeHeight = 50;

@@ -49,7 +49,7 @@ void MainWindow::paintEvent( QPaintEvent* event )
     painter.fillRect( 150, birdY, 50, 50, Qt::red );
 
     // Draw pipe
-    painter.fillRect( pipeX, topPipeYPos, pipeWidth, upperPipeHeight, Qt::green );
+    painter.fillRect( pipeX, topPipeYPos, pipeWidth, topPipeHeight, Qt::green );
     painter.fillRect( pipeX, bottomPipeYPos, pipeWidth, bottomPipeHeight, Qt::green );
 }
 
@@ -69,14 +69,16 @@ void MainWindow::gameLoop()
     }
 
     // Check for collisions
-    if( pipeX < 150 &&
-        pipeX > 50 &&
-        ( birdY <= 300 ||
-         birdY >= 550 ))
+    if( pipeX < 200 &&
+        pipeX > 150 &&
+        ( birdY <= topPipeYPos + topPipeHeight ||
+          birdY >= bottomPipeYPos ))
     {
         gameOver();
     }
-    else
+    else if( pipeX == 150 &&
+             ( birdY >= topPipeYPos + topPipeHeight ||
+               birdY <= bottomPipeYPos ))
     {
         score += 1;
     }
@@ -88,7 +90,10 @@ void MainWindow::gameLoop()
 void MainWindow::gameOver()
 {
     timer->stop();
-    int result = QMessageBox::information(this, "Game Over", "Your score: " + QString::number(score) + "\nDo you want to play again?", QMessageBox::Yes | QMessageBox::No);
+
+    QString infoText = "<font color = 'black'>Your score: " + QString::number(score) + "<br>Do you want to play again?</font>";
+    QMessageBox gameOverBox(QMessageBox::Critical, "Game Over", infoText, QMessageBox::Yes | QMessageBox::No);
+    int result = gameOverBox.exec();
 
     if (result == QMessageBox::Yes) {
         // Reset the game
