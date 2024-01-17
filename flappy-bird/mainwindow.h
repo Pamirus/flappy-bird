@@ -22,6 +22,9 @@ protected:
     void paintEvent(QPaintEvent *event);
     void initalize();
 
+    bool isCollusionDetected();
+    bool isPassedThroughThePipeGap();
+
 private slots:
     void gameLoop();
     void gameOver();
@@ -29,16 +32,31 @@ private slots:
 private:
     Ui::MainWindow *ui;
     QTimer *timer;
-    int birdY;
-    int pipeX;
-    int score;
 
-    const unsigned int pipeGap = 50;
-    const unsigned int topPipeHeight = height() - pipeGap;
+    unsigned int score;
+
+    int birdYPos;
+    const unsigned int initialBirdYPos = 300;
+    const unsigned int birdXPos = 150;
+    const unsigned int birdSize = 50;
+    const unsigned int birdRisePerWingbeat = 100;
+    const unsigned int birdFallPerFrame = 3;
+
+    const unsigned int groundPos = 550;
+
+    int pipeX;
+    const unsigned int initialPipeXPos = width() - 50;
+    const unsigned int pipeMovementPerFrame = 5;
+    const unsigned int pipeGap = 150;
     const unsigned int pipeWidth = 50;
+    const int pipeOutOfScreenBorder = -50;
+    const unsigned int topPipeHeight = 200;
     const unsigned int topPipeYPos = 0;
-    const unsigned int bottomPipeHeight = 50;
-    const unsigned int bottomPipeYPos = 550;
+    const unsigned int bottomPipeHeight = height() - topPipeHeight + pipeGap;
+    const unsigned int bottomPipeYPos = topPipeYPos + topPipeHeight + pipeGap;
+
+    bool isBirdTouchToPipe = false;
+    bool isBirdTouchToGround = false;
 };
 
 #endif // MAINWINDOW_H

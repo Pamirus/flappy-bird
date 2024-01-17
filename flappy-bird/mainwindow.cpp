@@ -24,18 +24,19 @@ MainWindow::~MainWindow()
 
 void MainWindow::initalize()
 {
-    birdY = 500;
-    pipeX = 700;
+    isBirdTouchToPipe = false;
+    isBirdTouchToGround = false;
+    birdYPos = initialBirdYPos;
+    pipeX = initialPipeXPos;
     score = 0;
 }
 
 void MainWindow::keyPressEvent( QKeyEvent* event )
 {
-    if( birdY > 50 &&
-        ( event->key() == Qt::Key_Space ||
-         event->key() == Qt::Key_Up ))
+    if( event->key() == Qt::Key_Space ||
+        event->key() == Qt::Key_Up )
     {
-        birdY -= 100;
+        birdYPos -= birdRisePerWingbeat;
     }
 }
 
@@ -46,7 +47,7 @@ void MainWindow::paintEvent( QPaintEvent* event )
     QPainter painter( this );
 
     // Draw bird
-    painter.fillRect( 150, birdY, 50, 50, Qt::red );
+    painter.fillRect( birdXPos, birdYPos, birdSize, birdSize, Qt::red );
 
     // Draw pipe
     painter.fillRect( pipeX, topPipeYPos, pipeWidth, topPipeHeight, Qt::green );
@@ -56,35 +57,49 @@ void MainWindow::paintEvent( QPaintEvent* event )
 void MainWindow::gameLoop()
 {
     // Update bird position
-    if( birdY < 550 )
-    {
-        birdY += 3;
-    }
+    birdYPos += birdFallPerFrame;
 
     // Update pipe position
-    pipeX -= 5;
-    if( pipeX < -50 )
+    pipeX -= pipeMovementPerFrame;
+    if( pipeX < pipeOutOfScreenBorder )
     {
         pipeX = width();
     }
 
     // Check for collisions
-    if( pipeX < 200 &&
-        pipeX > 150 &&
-        ( birdY <= topPipeYPos + topPipeHeight ||
-          birdY >= bottomPipeYPos ))
+    if( isCollusionDetected() )
     {
         gameOver();
     }
-    else if( pipeX == 150 &&
-             ( birdY >= topPipeYPos + topPipeHeight ||
-               birdY <= bottomPipeYPos ))
+    else if( isPassedThroughThePipeGap() )
     {
         score += 1;
     }
 
     // Repaint the window
     update();
+}
+
+bool MainWindow::isCollusionDetected()
+{
+    isBirdTouchToPipe = pipeX < birdXPos + birdSize &&
+                        pipeX > birdXPos &&
+                        ( birdYPos <= topPipeYPos + topPipeHeight ||
+                          birdYPos >= bottomPipeYPos);
+
+    if( birdYPos == groundPos - 1 )
+    {
+        isBirdTouchToGround = true;
+    }
+
+    return ( isBirdTouchToPipe|| isBirdTouchToGround );
+}
+
+bool MainWindow::isPassedThroughThePipeGap()
+{
+    return pipeX == birdXPos &&
+           ( birdYPos >= topPipeYPos + topPipeHeight ||
+             birdYPos <= bottomPipeYPos );
 }
 
 void MainWindow::gameOver()
