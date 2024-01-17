@@ -22,7 +22,8 @@ public:
 protected:
     void keyPressEvent(QKeyEvent *event);
     void paintEvent(QPaintEvent *event);
-    void initalize();
+    void initialize();
+    void drawBackground();
     void drawScoreOnWindow();
 
     bool isCollusionDetected();
@@ -44,8 +45,8 @@ private:
     int birdYPos;
     const unsigned int initialBirdYPos = 300;
     const unsigned int birdXPos = 150;
-    const unsigned int birdSize = 50;
-    const unsigned int birdRisePerWingbeat = 100;
+    const unsigned int birdSize = 40;
+    const unsigned int birdRisePerWingbeat = 75;
     const unsigned int birdFallPerFrame = 4;
 
     const unsigned int groundPos = 550;

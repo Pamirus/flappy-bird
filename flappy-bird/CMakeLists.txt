@@ -12,6 +12,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/resources/font/ DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/resources/font/)
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/resources/world/ DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/resources/world/)
+
 set(PROJECT_SOURCES
         main.cpp
         mainwindow.cpp

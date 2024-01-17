@@ -4,13 +4,17 @@
 #include <QMessageBox>
 #include <QLabel>
 #include <QVBoxLayout>
+#include <QFontDatabase>
+#include <QPixmap>
 
 MainWindow::MainWindow( QWidget* parent )
     : QMainWindow( parent ), ui( new Ui::MainWindow )
 {
     ui->setupUi( this );
+    QFontDatabase::addApplicationFont("./resources/font/PressStart2P-Regular.ttf");
+    drawBackground();
 
-    initalize();
+    initialize();
 
     timer = new QTimer( this );
     connect( timer, SIGNAL( timeout() ), this, SLOT( gameLoop() ));
@@ -27,7 +31,7 @@ MainWindow::~MainWindow()
     delete scoreLabelWidget;
 }
 
-void MainWindow::initalize()
+void MainWindow::initialize()
 {
     scoreLabel = new QLabel;
     scoreLabelLayout = new QVBoxLayout;
@@ -66,13 +70,22 @@ void MainWindow::paintEvent( QPaintEvent* event )
     painter.fillRect( pipeX, bottomPipeYPos, pipeWidth, bottomPipeHeight, Qt::green );
 }
 
+void MainWindow::drawBackground()
+{
+    QPixmap backgroundImage("./resources/world/background.png");
+    QPalette palette;
+    palette.setBrush(QPalette::Window, backgroundImage);
+    this->setPalette(palette);
+}
+
 void MainWindow::drawScoreOnWindow()
 {
-    scoreLabel->setStyleSheet( "QLabel { color: white; font-family: 'Roboto'; font-weight: bold; font-size: 72px; }" );
-    setCentralWidget( scoreLabel );
+    scoreLabel->setStyleSheet( "QLabel { color: white; font-weight: bold; }" );
+    scoreLabel->setFont(QFont("Press Start 2P", 24));
 
     scoreLabelLayout->addWidget(scoreLabel, 0, Qt::AlignTop | Qt::AlignHCenter);
     scoreLabelWidget->setLayout(scoreLabelLayout);
+
     setCentralWidget(scoreLabelWidget);
 }
 
@@ -106,9 +119,9 @@ void MainWindow::gameLoop()
 bool MainWindow::isCollusionDetected()
 {
     isBirdTouchToPipe = pipeX < birdXPos + birdSize &&
-                        pipeX > birdXPos &&
+                        pipeX > birdXPos - birdSize &&
                         ( birdYPos <= topPipeYPos + topPipeHeight ||
-                          birdYPos >= bottomPipeYPos);
+                          birdYPos >= bottomPipeYPos - birdSize );
 
     if( birdYPos >= groundPos )
     {
@@ -135,7 +148,7 @@ void MainWindow::gameOver()
 
     if (result == QMessageBox::Yes) {
         // Reset the game
-        initalize();
+        initialize();
         timer->start();
         update();
     } else {

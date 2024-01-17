@@ -7,7 +7,7 @@
 				{
 					"build" : ".",
 					"hasInstallRule" : true,
-					"jsonFile" : "directory-.-Debug-8226a498ffa49385d8ae.json",
+					"jsonFile" : "directory-.-Debug-9c173525c94d1763727b.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.16"
@@ -44,7 +44,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "flappy-bird::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-flappy-bird-Debug-59d550701a68d2c28b57.json",
+					"jsonFile" : "target-flappy-bird-Debug-afd0e1302cd609247947.json",
 					"name" : "flappy-bird",
 					"projectIndex" : 0
 				},
