@@ -2,6 +2,8 @@
 #include "ui_mainwindow.h"
 #include <QPainter>
 #include <QMessageBox>
+#include <QLabel>
+#include <QVBoxLayout>
 
 MainWindow::MainWindow( QWidget* parent )
     : QMainWindow( parent ), ui( new Ui::MainWindow )
@@ -11,24 +13,34 @@ MainWindow::MainWindow( QWidget* parent )
     initalize();
 
     timer = new QTimer( this );
-    connect( timer, SIGNAL( timeout() ), this, SLOT( gameLoop() ) );
+    connect( timer, SIGNAL( timeout() ), this, SLOT( gameLoop() ));
     timer->start( 16 ); // 60 FPS
 
-    setFixedSize( 800, 600 );
+    setFixedSize( 400, 600 );
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete scoreLabel;
+    delete scoreLabelLayout;
+    delete scoreLabelWidget;
 }
 
 void MainWindow::initalize()
 {
+    scoreLabel = new QLabel;
+    scoreLabelLayout = new QVBoxLayout;
+    scoreLabelWidget = new QWidget;
+
     isBirdTouchToPipe = false;
     isBirdTouchToGround = false;
     birdYPos = initialBirdYPos;
     pipeX = initialPipeXPos;
+
     score = 0;
+    scoreLabel->setText( QString::number( score ));
+    drawScoreOnWindow();
 }
 
 void MainWindow::keyPressEvent( QKeyEvent* event )
@@ -54,6 +66,16 @@ void MainWindow::paintEvent( QPaintEvent* event )
     painter.fillRect( pipeX, bottomPipeYPos, pipeWidth, bottomPipeHeight, Qt::green );
 }
 
+void MainWindow::drawScoreOnWindow()
+{
+    scoreLabel->setStyleSheet( "QLabel { color: white; font-family: 'Roboto'; font-weight: bold; font-size: 72px; }" );
+    setCentralWidget( scoreLabel );
+
+    scoreLabelLayout->addWidget(scoreLabel, 0, Qt::AlignTop | Qt::AlignHCenter);
+    scoreLabelWidget->setLayout(scoreLabelLayout);
+    setCentralWidget(scoreLabelWidget);
+}
+
 void MainWindow::gameLoop()
 {
     // Update bird position
@@ -74,6 +96,7 @@ void MainWindow::gameLoop()
     else if( isPassedThroughThePipeGap() )
     {
         score += 1;
+        scoreLabel->setText(QString::number(score));
     }
 
     // Repaint the window
@@ -87,17 +110,17 @@ bool MainWindow::isCollusionDetected()
                         ( birdYPos <= topPipeYPos + topPipeHeight ||
                           birdYPos >= bottomPipeYPos);
 
-    if( birdYPos == groundPos - 1 )
+    if( birdYPos >= groundPos )
     {
         isBirdTouchToGround = true;
     }
 
-    return ( isBirdTouchToPipe|| isBirdTouchToGround );
+    return ( isBirdTouchToPipe || isBirdTouchToGround );
 }
 
 bool MainWindow::isPassedThroughThePipeGap()
 {
-    return pipeX == birdXPos &&
+    return pipeX == birdXPos + 1 &&
            ( birdYPos >= topPipeYPos + topPipeHeight ||
              birdYPos <= bottomPipeYPos );
 }

@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QKeyEvent>
 #include <QTimer>
+#include <QLabel>
+#include <QVBoxLayout>
 
 namespace Ui {
 class MainWindow;
@@ -21,6 +23,7 @@ protected:
     void keyPressEvent(QKeyEvent *event);
     void paintEvent(QPaintEvent *event);
     void initalize();
+    void drawScoreOnWindow();
 
     bool isCollusionDetected();
     bool isPassedThroughThePipeGap();
@@ -30,8 +33,11 @@ private slots:
     void gameOver();
 
 private:
-    Ui::MainWindow *ui;
-    QTimer *timer;
+    Ui::MainWindow* ui;
+    QTimer* timer;
+    QLabel* scoreLabel;
+    QVBoxLayout* scoreLabelLayout;
+    QWidget* scoreLabelWidget;
 
     unsigned int score;
 
@@ -40,13 +46,13 @@ private:
     const unsigned int birdXPos = 150;
     const unsigned int birdSize = 50;
     const unsigned int birdRisePerWingbeat = 100;
-    const unsigned int birdFallPerFrame = 3;
+    const unsigned int birdFallPerFrame = 4;
 
     const unsigned int groundPos = 550;
 
     int pipeX;
-    const unsigned int initialPipeXPos = width() - 50;
-    const unsigned int pipeMovementPerFrame = 5;
+    const unsigned int initialPipeXPos = width();
+    const unsigned int pipeMovementPerFrame = 3;
     const unsigned int pipeGap = 150;
     const unsigned int pipeWidth = 50;
     const int pipeOutOfScreenBorder = -50;

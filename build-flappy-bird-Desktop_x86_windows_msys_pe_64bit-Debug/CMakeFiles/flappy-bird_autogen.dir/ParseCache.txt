@@ -158,6 +158,7 @@ C:/Users/pamir/Desktop/C++/flappy-bird-qt/flappy-bird/mainwindow.h
  mdp:C:/Qt/6.7.0/mingw_64/include/QtGui/qkeysequence.h
  mdp:C:/Qt/6.7.0/mingw_64/include/QtGui/qpaintdevice.h
  mdp:C:/Qt/6.7.0/mingw_64/include/QtGui/qpalette.h
+ mdp:C:/Qt/6.7.0/mingw_64/include/QtGui/qpicture.h
  mdp:C:/Qt/6.7.0/mingw_64/include/QtGui/qpixelformat.h
  mdp:C:/Qt/6.7.0/mingw_64/include/QtGui/qpixmap.h
  mdp:C:/Qt/6.7.0/mingw_64/include/QtGui/qpointingdevice.h
@@ -167,6 +168,7 @@ C:/Users/pamir/Desktop/C++/flappy-bird-qt/flappy-bird/mainwindow.h
  mdp:C:/Qt/6.7.0/mingw_64/include/QtGui/qrgba64.h
  mdp:C:/Qt/6.7.0/mingw_64/include/QtGui/qscreen.h
  mdp:C:/Qt/6.7.0/mingw_64/include/QtGui/qscreen_platform.h
+ mdp:C:/Qt/6.7.0/mingw_64/include/QtGui/qtextdocument.h
  mdp:C:/Qt/6.7.0/mingw_64/include/QtGui/qtgui-config.h
  mdp:C:/Qt/6.7.0/mingw_64/include/QtGui/qtguiexports.h
  mdp:C:/Qt/6.7.0/mingw_64/include/QtGui/qtguiglobal.h
@@ -175,7 +177,15 @@ C:/Users/pamir/Desktop/C++/flappy-bird-qt/flappy-bird/mainwindow.h
  mdp:C:/Qt/6.7.0/mingw_64/include/QtGui/qvectornd.h
  mdp:C:/Qt/6.7.0/mingw_64/include/QtGui/qwindowdefs.h
  mdp:C:/Qt/6.7.0/mingw_64/include/QtGui/qwindowdefs_win.h
+ mdp:C:/Qt/6.7.0/mingw_64/include/QtWidgets/QLabel
  mdp:C:/Qt/6.7.0/mingw_64/include/QtWidgets/QMainWindow
+ mdp:C:/Qt/6.7.0/mingw_64/include/QtWidgets/QVBoxLayout
+ mdp:C:/Qt/6.7.0/mingw_64/include/QtWidgets/qboxlayout.h
+ mdp:C:/Qt/6.7.0/mingw_64/include/QtWidgets/qframe.h
+ mdp:C:/Qt/6.7.0/mingw_64/include/QtWidgets/qgridlayout.h
+ mdp:C:/Qt/6.7.0/mingw_64/include/QtWidgets/qlabel.h
+ mdp:C:/Qt/6.7.0/mingw_64/include/QtWidgets/qlayout.h
+ mdp:C:/Qt/6.7.0/mingw_64/include/QtWidgets/qlayoutitem.h
  mdp:C:/Qt/6.7.0/mingw_64/include/QtWidgets/qmainwindow.h
  mdp:C:/Qt/6.7.0/mingw_64/include/QtWidgets/qsizepolicy.h
  mdp:C:/Qt/6.7.0/mingw_64/include/QtWidgets/qtabwidget.h
