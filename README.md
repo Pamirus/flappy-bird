@@ -2,6 +2,10 @@
 
 Flappy Bird game clone project using Qt Framework.
 
+The texture images were created by myself using [paint.net](https://www.getpaint.net/)
+
+The used font is [Press Start 2P](https://fonts.google.com/specimen/Press+Start+2P)
+
 ---
 
 **Screenshots**
