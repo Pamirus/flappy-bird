@@ -6,6 +6,8 @@ The texture images were created by myself using [paint.net](https://www.getpaint
 
 The used font is [Press Start 2P](https://fonts.google.com/specimen/Press+Start+2P)
 
+The software architecture of the project will be improved soon.
+
 ---
 
 **Screenshots**
