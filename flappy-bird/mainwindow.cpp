@@ -10,6 +10,9 @@
 MainWindow::MainWindow( QWidget* parent )
     : QMainWindow( parent ), ui( new Ui::MainWindow )
 {
+    QIcon icon("./resources/icon/favicon.ico");
+    setWindowIcon(icon);
+
     ui->setupUi( this );
     QFontDatabase::addApplicationFont("./resources/font/PressStart2P-Regular.ttf");
     drawBackground();
@@ -62,26 +65,44 @@ void MainWindow::paintEvent( QPaintEvent* event )
 
     QPainter painter( this );
 
-    // Draw bird
-    painter.fillRect( birdXPos, birdYPos, birdSize, birdSize, Qt::red );
+    drawGround( painter );
+    drawBird( painter );
+    drawPipe( painter );
+}
 
-    // Draw pipe
-    painter.fillRect( pipeX, topPipeYPos, pipeWidth, topPipeHeight, Qt::green );
-    painter.fillRect( pipeX, bottomPipeYPos, pipeWidth, bottomPipeHeight, Qt::green );
+void MainWindow::drawBird(QPainter& painter)
+{
+    QPixmap birdPixmap( "./resources/world/bird.png" );
+    painter.drawPixmap( birdXPos, birdYPos, birdPixmap );
+}
+
+void MainWindow::drawPipe(QPainter& painter)
+{
+    QPixmap pipePixmap( "./resources/world/pipe.png" );
+    QPixmap topPipePixmap = pipePixmap.transformed(QTransform().scale(1, -1));
+
+    painter.drawPixmap( pipeX, width() - bottomPipeYPos - pipeGap, topPipePixmap );
+    painter.drawPixmap( pipeX, bottomPipeYPos, pipePixmap );
+}
+
+void MainWindow::drawGround(QPainter& painter)
+{
+    QPixmap groundPixmap( "./resources/world/ground.png" );
+    painter.drawPixmap( groundXPos, groundYPos, groundPixmap.width(), groundPixmap.height(), groundPixmap );
 }
 
 void MainWindow::drawBackground()
 {
-    QPixmap backgroundImage("./resources/world/background.png");
+    QPixmap backgroundPixmap( "./resources/world/background.png" );
     QPalette palette;
-    palette.setBrush(QPalette::Window, backgroundImage);
+    palette.setBrush(QPalette::Window, backgroundPixmap);
     this->setPalette(palette);
 }
 
 void MainWindow::drawScoreOnWindow()
 {
     scoreLabel->setStyleSheet( "QLabel { color: white; font-weight: bold; }" );
-    scoreLabel->setFont(QFont("Press Start 2P", 24));
+    scoreLabel->setFont(QFont("Press Start 2P", 36));
 
     scoreLabelLayout->addWidget(scoreLabel, 0, Qt::AlignTop | Qt::AlignHCenter);
     scoreLabelWidget->setLayout(scoreLabelLayout);
@@ -123,7 +144,7 @@ bool MainWindow::isCollusionDetected()
                         ( birdYPos <= topPipeYPos + topPipeHeight ||
                           birdYPos >= bottomPipeYPos - birdSize );
 
-    if( birdYPos >= groundPos )
+    if( birdYPos >= groundYPos - birdSize )
     {
         isBirdTouchToGround = true;
     }

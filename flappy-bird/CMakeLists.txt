@@ -14,6 +14,7 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/resources/font/ DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/resources/font/)
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/resources/world/ DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/resources/world/)
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/resources/icon/ DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/resources/icon/)
 
 set(PROJECT_SOURCES
         main.cpp

@@ -23,6 +23,9 @@ protected:
     void keyPressEvent(QKeyEvent *event);
     void paintEvent(QPaintEvent *event);
     void initialize();
+    void drawBird(QPainter& painter);
+    void drawPipe(QPainter& painter);
+    void drawGround(QPainter& painter);
     void drawBackground();
     void drawScoreOnWindow();
 
@@ -47,9 +50,10 @@ private:
     const unsigned int birdXPos = 150;
     const unsigned int birdSize = 40;
     const unsigned int birdRisePerWingbeat = 75;
-    const unsigned int birdFallPerFrame = 4;
+    const unsigned int birdFallPerFrame = 3;
 
-    const unsigned int groundPos = 550;
+    const unsigned int groundXPos = 0;
+    const unsigned int groundYPos = 575;
 
     int pipeX;
     const unsigned int initialPipeXPos = width();
@@ -59,7 +63,7 @@ private:
     const int pipeOutOfScreenBorder = -50;
     const unsigned int topPipeHeight = 200;
     const unsigned int topPipeYPos = 0;
-    const unsigned int bottomPipeHeight = height() - topPipeHeight + pipeGap;
+    const unsigned int bottomPipeHeight = height() - topPipeHeight - pipeGap;
     const unsigned int bottomPipeYPos = topPipeYPos + topPipeHeight + pipeGap;
 
     bool isBirdTouchToPipe = false;
