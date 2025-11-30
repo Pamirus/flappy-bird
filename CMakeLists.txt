@@ -9,8 +9,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
+find_package(Qt5 REQUIRED COMPONENTS Widgets)
 
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/resources/font/ DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/resources/font/)
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/resources/world/ DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/resources/world/)
@@ -18,42 +17,26 @@ file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/resources/icon/ DESTINATION ${CMAKE_CURREN
 
 set(PROJECT_SOURCES
         main.cpp
-        mainwindow.cpp
-        mainwindow.h
-        mainwindow.ui
+        MainWindow.cpp
+        MainWindow.h
+        MainWindow.ui
+        Game.cpp
+        Game.h
 )
 
-if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    qt_add_executable(flappy-bird
-        MANUAL_FINALIZATION
+if(ANDROID)
+    add_library(flappy-bird SHARED
         ${PROJECT_SOURCES}
     )
-# Define target properties for Android with Qt 6 as:
-#    set_property(TARGET flappy-bird APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
-#                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
-# For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
 else()
-    if(ANDROID)
-        add_library(flappy-bird SHARED
-            ${PROJECT_SOURCES}
-        )
-# Define properties for Android with Qt 5 after find_package() calls as:
-#    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
-    else()
-        add_executable(flappy-bird
-            ${PROJECT_SOURCES}
-        )
-    endif()
+    add_executable(flappy-bird
+        ${PROJECT_SOURCES}
+    )
 endif()
 
-target_link_libraries(flappy-bird PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(flappy-bird PRIVATE Qt5::Widgets)
 
-# Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
-# If you are developing for iOS or macOS you should consider setting an
-# explicit, fixed bundle identifier manually though.
-if(${QT_VERSION} VERSION_LESS 6.1.0)
-  set(BUNDLE_ID_OPTION MACOSX_BUNDLE_GUI_IDENTIFIER com.example.flappy-bird)
-endif()
+set(BUNDLE_ID_OPTION MACOSX_BUNDLE_GUI_IDENTIFIER com.example.flappy-bird)
 set_target_properties(flappy-bird PROPERTIES
     ${BUNDLE_ID_OPTION}
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
@@ -69,6 +52,3 @@ install(TARGETS flappy-bird
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
-if(QT_VERSION_MAJOR EQUAL 6)
-    qt_finalize_executable(flappy-bird)
-endif()
