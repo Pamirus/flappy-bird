@@ -18,4 +18,4 @@ The used font is [Press Start 2P](https://fonts.google.com/specimen/Press+Start+
 
 ---
 
-**Demo:** [Click here to watch](/screenshots/demo.mp4)
+**Demo:** [Click here to watch on Youtube](https://youtube.com/shorts/xDpE3ET5EFU)
